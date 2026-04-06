@@ -69,6 +69,7 @@ def insert_document(conn, json_data):
         attributes.get("topics"),
         attributes.get("withdrawn"),
         attributes.get("zip"),
+        attributes.get("frDocNum"),
     )
 
     # Insert into the database
@@ -85,8 +86,8 @@ def insert_document(conn, json_data):
                 submitter_org, phone, posted_date, postmark_date, reason_withdrawn,
                 receive_date, reg_writer_instruction, restriction_reason,
                 restriction_reason_type, state_province_region, subtype,
-                document_title, topics, is_withdrawn, postal_code
-            ) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s);
+                document_title, topics, is_withdrawn, postal_code, frdocnum
+            ) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s);
             """
             cursor.execute(insert_query, values)
             print(f"Document {document_id} inserted successfully.")
@@ -94,7 +95,6 @@ def insert_document(conn, json_data):
         print(f"An error occurred: {e}")
 
 
-# Main function to read JSON from file and insert into the database
 # Main function to read JSON from file and insert into the database
 def main():
     if len(sys.argv) != 2:
@@ -128,7 +128,6 @@ def main():
         print("Error decoding JSON from the file.")
     except Exception as e:
         print(f"An error occurred: {e}")
-
 
 if __name__ == "__main__":
     main()
