@@ -70,7 +70,17 @@ def insert_document(conn, json_data):
         attributes.get("withdrawn"),
         attributes.get("zip"),
         attributes.get("frDocNum"),
+        attributes.get("relationships").get("attachments").get("links").get("self"),
+        attributes.get("relationships").get("attachments").get("links").get("related"),
+        attributes.get("fileFormats"),
+        attributes.get("displayProperties"),
     )
+
+    # attachments_self_link    VARCHAR(2000),
+    # attachments_related_link VARCHAR(2000),
+    # file_formats             JSONB,
+    # display_properties       JSONB
+    
 
     # Insert into the database
     try:
@@ -86,8 +96,9 @@ def insert_document(conn, json_data):
                 submitter_org, phone, posted_date, postmark_date, reason_withdrawn,
                 receive_date, reg_writer_instruction, restriction_reason,
                 restriction_reason_type, state_province_region, subtype,
-                document_title, topics, is_withdrawn, postal_code, frdocnum
-            ) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s);
+                document_title, topics, is_withdrawn, postal_code, frdocnum,
+                attachments_self_link, attachments_related_link, file_formats, display_properties
+            ) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s);
             """
             cursor.execute(insert_query, values)
             print(f"Document {document_id} inserted successfully.")
